@@ -1,24 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+
+type poo = [string, string]
 
 function App() {
+  const x: poo[] = []
+  const [tagged, setTagged] = useState(x)
+
+  const change = () => {
+    const inputArea = document.getElementById('input-area') as HTMLInputElement
+    fetch('http://postaggr-env.eba-pnma8zwt.eu-west-1.elasticbeanstalk.com/simple/',
+    {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'words': inputArea.value
+      })
+    })
+      .then(res => res.json())
+      .then(j =>setTagged(j))
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <textarea id='input-area' onBlur={change}></textarea>
+      <br />
+      <button onClick={change}>Tag</button>
+      <br />
+      <div >
+        {tagged.map(t => <span className={t[1]}>{t[0]} </span>)}
+      </div>
     </div>
   );
 }
