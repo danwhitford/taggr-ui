@@ -76,6 +76,16 @@ function App() {
             type={pos}
             visible={posToggles.find(([, p]) => p === pos)?.[2]}
             colour={getColour(pos)}
+            onClick={() => {
+              const pt = posToggles.map(([l, p, t]) => {
+                if (p === pos) {
+                  return [l, p, !t] as Toggle
+                } else {
+                  return [l, p, t] as Toggle
+                }                  
+              })
+              setPosToggles(pt)
+            }}
           />          
         ))}
       </div>
