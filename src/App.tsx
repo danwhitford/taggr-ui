@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, SetStateAction, Dispatch } from 'react';
 import WordChip from './WordChip';
 import SimplePos from './SimplePos';
 import './global.css'
+import Toggles from './Toggles';
 
 type TaggedWords = [string, SimplePos]
-type Toggle = [string, SimplePos, boolean]
+// type Toggle = [string, SimplePos, boolean]
+interface ToggleI {
+  pos: SimplePos;
+  label: string;
+  visible: boolean;  
+  colour: string;
+}
+export type TogglesT = ToggleI[]
 
 const getColour = (pos: SimplePos): string => {
   switch(pos){
@@ -40,9 +48,16 @@ const getColour = (pos: SimplePos): string => {
 
 function App() {
   const [tagged, setTagged] = useState([] as TaggedWords[])
-  const [posToggles, setPosToggles] = useState(Object
+  const [posToggles, setPosToggles]: [TogglesT, Dispatch<SetStateAction<TogglesT>>] = useState(Object
     .entries(SimplePos)
-    .map(([label, pos]) => [label, pos, true] as Toggle)
+    .map(([label, pos]) => {
+      return {
+        pos,
+        label,
+        visible: true,
+        colour: getColour(pos)
+      } as ToggleI
+    })
   )
 
   const change = () => {
@@ -62,6 +77,20 @@ function App() {
       .then(j => setTagged(j))
   }
 
+  const togglePos = (pos: SimplePos) => {
+    const toggledToggles = posToggles.map(t => {
+      if (t.pos === pos) {
+        return {
+          ...t,
+          visible: !t.visible
+        }
+      } else {
+        return t
+      }
+    })
+    setPosToggles(toggledToggles)
+  }
+
   return (
     <div>
       <textarea id='input-area' onBlur={change} defaultValue='Hello I am Dan and I am writing dummy text.' cols={80} rows={10}></textarea>
@@ -74,48 +103,17 @@ function App() {
             key={i}
             word={word}
             type={pos}
-            visible={posToggles.find(([, p]) => p === pos)?.[2]}
+            visible={posToggles.find((p: ToggleI) => p.pos === pos)?.visible}
             colour={getColour(pos)}
-            onClick={() => {
-              const pt = posToggles.map(([l, p, t]) => {
-                if (p === pos) {
-                  return [l, p, !t] as Toggle
-                } else {
-                  return [l, p, t] as Toggle
-                }                  
-              })
-              setPosToggles(pt)
-            }}
+            onClick={() => togglePos(pos)}
           />          
         ))}
       </div>
       <div>
-        {posToggles.map(([label, pos, toggled], i) => (
-          <div key={i}>
-            <div
-              style={{
-                height: '10px',
-                width: '10px',
-                backgroundColor: getColour(pos),
-                display: 'inline-block'
-              }}
-            ></div>
-            <input type="checkbox" id={label} name={label} value={label} checked={toggled}
-              onChange={() => {
-                const pt = posToggles.map(([l, p, t]) => {
-                  if (p === pos) {
-                    return [l, p, !t] as Toggle
-                  } else {
-                    return [l, p, t] as Toggle
-                  }                  
-                })
-                setPosToggles(pt)
-              }}
-            />
-            <label>{label}</label>
-            <br></br>
-          </div>
-        ))}
+        <Toggles 
+          toggles={posToggles}
+          onChange={togglePos}
+        />
       </div>
     </div>
   );
