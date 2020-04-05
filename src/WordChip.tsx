@@ -15,12 +15,11 @@ const WordChip = ({word, type, visible, colour, onClick}: WordChipProp) => (
             style={{
                 backgroundColor: colour,
                 color: visible ? 'white' : colour,
-                border: '1px solid black',
                 borderRadius: '25px',
                 padding: '0 5px',
                 margin: '0 2px',
                 height: '40px',
-                fontSize: '16px',
+                fontSize: '20px',
                 lineHeight: '40px',
                 display: 'inline-block',
                 userSelect: 'none',

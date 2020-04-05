@@ -3,6 +3,7 @@ import WordChip from './WordChip';
 import SimplePos from './SimplePos';
 import './global.css'
 import Toggles from './Toggles';
+import TagCab from './TagCab';
 
 type TaggedWords = [string, SimplePos]
 // type Toggle = [string, SimplePos, boolean]
@@ -17,28 +18,28 @@ export type TogglesT = ToggleI[]
 const getColour = (pos: SimplePos): string => {
   switch(pos){
     case (SimplePos.Adjective): {
-      return '#96ceb4'
+      return '#43546a'
     }
     case (SimplePos.Adverb): {
-      return '#ffeead'
+      return '#4472c5'
     }
     case (SimplePos.Noun): {
-      return '#ffcc5c'
+      return '#70ac46'
     }
     case (SimplePos.Pronoun): {
-      return '#ff6f69'
+      return '#5b9bd5'
     }
     case (SimplePos.Verb): {
-      return '#588c7e'
+      return '#ed7d32'
     }
     case (SimplePos.Conjunctives): {
-      return '#f2e394'
+      return '#ffc000'
     } 
     case (SimplePos.Determiner): {
       return '#f2ae72'
     } 
     case (SimplePos.Preposition): {
-      return '#d96459'
+      return '#ea592f'
     }
     default: {
       return '#43464B'
@@ -46,8 +47,11 @@ const getColour = (pos: SimplePos): string => {
   }
 }
 
+const apiRoute = process.env.REACT_APP_API_ROUTE || 'http://localhost:8081/simple'
+
 function App() {
-  const [tagged, setTagged] = useState([] as TaggedWords[])
+  const [inputText, setInputText] = useState("This is the default input text.")
+  const [tagged, setTagged]: [TaggedWords[], Dispatch<SetStateAction<TaggedWords[]>>] = useState([] as TaggedWords[])
   const [posToggles, setPosToggles]: [TogglesT, Dispatch<SetStateAction<TogglesT>>] = useState(Object
     .entries(SimplePos)
     .map(([label, pos]) => {
@@ -61,8 +65,7 @@ function App() {
   )
 
   const change = () => {
-    const inputArea = document.getElementById('input-area') as HTMLInputElement
-    fetch('http://localhost:8081/simple/',
+    fetch(apiRoute,
       {
         method: 'POST',
         mode: 'cors',
@@ -70,7 +73,7 @@ function App() {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          'words': inputArea.value
+          'words': inputText
         })
       })
       .then(res => res.json())
@@ -92,12 +95,44 @@ function App() {
   }
 
   return (
-    <div>
-      <textarea id='input-area' onBlur={change} defaultValue='Hello I am Dan and I am writing dummy text.' cols={80} rows={10}></textarea>
+    <>
+    <div
+      style={{
+        width: '700px',
+        margin: 'auto',
+        marginBottom: '50px',
+      }}
+    >
+        <textarea 
+          id='input-area' 
+          onChange={(ev) => setInputText(ev.target.value)}
+          value={inputText}
+          cols={80} 
+          rows={10}
+          style={{
+            resize: 'none',
+            zIndex: -1,
+            fontSize: '22px',
+            width: '500px',
+          }}
+        ></textarea>
+        <br />
+        <TagCab 
+          onClick={change}
+        />
+      </div>
       <br />
-      <button onClick={change}>Tag</button>
-      <br />
-      <div >
+      { tagged.length > 0 ? <div
+        style={{
+          width: '700px',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          textAlign: 'center',
+          borderRadius: '50px',
+          border: '1px dashed #252e3b',
+          marginBottom: '40px',
+        }}
+      >
         {tagged.map(([word, pos], i) => (
           <WordChip
             key={i}
@@ -108,14 +143,20 @@ function App() {
             onClick={() => togglePos(pos)}
           />          
         ))}
-      </div>
-      <div>
+      </div> : null }
+      <div
+        style={{
+          width: '700px',
+          margin: 'auto',
+          textAlign: 'center',
+        }}
+      >
         <Toggles 
           toggles={posToggles}
           onChange={togglePos}
         />
       </div>
-    </div>
+    </>
   );
 }
 

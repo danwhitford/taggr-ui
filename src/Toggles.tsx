@@ -7,7 +7,7 @@ interface TogglesProp {
     onChange: (pos: SimplePos) => void
 }
 
-const makeLabel = (label: string) => (
+const makeLabel = (label: string, visible: boolean) => (
     <>
         <div
             style={{
@@ -16,6 +16,9 @@ const makeLabel = (label: string) => (
                 lineHeight: 'normal',
                 marginLeft: '2px',
                 marginRight: '2px',
+                userSelect: 'none',
+                fontSize: '20px',
+                color: visible ? 'white' : 'black',
             }}
         >
             {label}
@@ -23,13 +26,15 @@ const makeLabel = (label: string) => (
     </>
 )
 
-const makeBall = () => (
-    <div
+const makeBall = (visible: boolean, colour: string) => (
+<div
         style={{
             borderRadius: '50%',
             width: '25px',
             height: '25px',
-            backgroundColor: 'pink',
+            backgroundImage: visible
+                ? 'radial-gradient(circle at 50% 50%, #78e1d0, #43c0a3 71%)'
+                : 'radial-gradient(circle at 50% 50%, #ffa58b, #ea592f 71%)',
             display: 'inline-block',
             verticalAlign: 'middle',
         }}
@@ -37,20 +42,26 @@ const makeBall = () => (
     </div>
 )
 
-const ordered = (label: string, visible: boolean) => (
-    visible ? [makeLabel(label), makeBall()] : [makeBall(), makeLabel(label)]
+const ordered = (label: string, visible: boolean, colour: string) => (
+    visible 
+        ? <>{makeLabel(label, visible)} {makeBall(visible, colour)}</> 
+        : <>{makeBall(visible, colour)} {makeLabel(label, visible)}</>
 )
 
 const Toggles = ({ toggles, onChange }: TogglesProp) => (
     <>
         {toggles.map((toggle, i) => (
-            <div 
-                key={i}
+            <div
                 style={{
                     display: 'inline-block',
+                    userSelect: 'none',
+                    marginTop: '5px',
+                    marginBottom: '5px',
                 }}
+                key={i}
             >
                 <div
+                    key={i}
                     style={{
                         height: '25px',
                         lineHeight: '25px',
@@ -58,17 +69,17 @@ const Toggles = ({ toggles, onChange }: TogglesProp) => (
                         paddingRight: '5px',
                         paddingTop: '5px',
                         paddingBottom: '5px',
-                        backgroundColor: toggle.visible ? toggle.colour : 'grey',
+                        backgroundColor: toggle.visible ? toggle.colour : 'white',
                         display: 'inline-block',
                         borderRadius: '17.5px',
+                        border: toggle.visible ? `1px solid ${toggle.colour}` : '1px solid black',
                         marginLeft: '2px',
                         marginRight: '2px',
                     }}
                     onClick={() => onChange(toggle.pos)}
                 >
-                    {ordered(toggle.label, toggle.visible)}
+                    {ordered(toggle.label, toggle.visible, toggle.colour)}
                 </div>
-                <br></br>
             </div>
         ))}
     </>
