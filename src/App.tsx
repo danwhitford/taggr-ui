@@ -9,7 +9,7 @@ import { Tag } from "en-pos";
 import { zip, flatMap } from "lodash";
 
 type TaggedWords = [string | undefined, SimplePos]
-// type Toggle = [string, SimplePos, boolean]
+
 interface ToggleI {
   pos: SimplePos;
   label: string;
