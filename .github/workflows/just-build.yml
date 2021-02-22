@@ -1,8 +1,5 @@
 name: Just build
-on:
-  pull_request:
-    branches:
-      - main
+on: ['push']
 jobs:
   just-build:
     runs-on: ubuntu-latest
