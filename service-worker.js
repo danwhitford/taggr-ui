@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/taggr-ui/precache-manifest.5aa1b87cdea758710ab9e89284d0ba68.js"
+  "/taggr-ui/precache-manifest.0a71d14ef9d581e90ff3fd73c28bdb7b.js"
 );
 
 self.addEventListener('message', (event) => {
