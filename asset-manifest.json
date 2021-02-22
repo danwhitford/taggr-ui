@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/taggr-ui/static/css/main.947555df.chunk.css",
+    "main.js": "/taggr-ui/static/js/main.c6df9b87.chunk.js",
+    "main.js.map": "/taggr-ui/static/js/main.c6df9b87.chunk.js.map",
+    "runtime-main.js": "/taggr-ui/static/js/runtime-main.8cfd42eb.js",
+    "runtime-main.js.map": "/taggr-ui/static/js/runtime-main.8cfd42eb.js.map",
+    "static/js/2.0a64dfa1.chunk.js": "/taggr-ui/static/js/2.0a64dfa1.chunk.js",
+    "static/js/2.0a64dfa1.chunk.js.map": "/taggr-ui/static/js/2.0a64dfa1.chunk.js.map",
+    "index.html": "/taggr-ui/index.html",
+    "precache-manifest.5aa1b87cdea758710ab9e89284d0ba68.js": "/taggr-ui/precache-manifest.5aa1b87cdea758710ab9e89284d0ba68.js",
+    "service-worker.js": "/taggr-ui/service-worker.js",
+    "static/css/main.947555df.chunk.css.map": "/taggr-ui/static/css/main.947555df.chunk.css.map",
+    "static/js/2.0a64dfa1.chunk.js.LICENSE.txt": "/taggr-ui/static/js/2.0a64dfa1.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.8cfd42eb.js",
+    "static/js/2.0a64dfa1.chunk.js",
+    "static/css/main.947555df.chunk.css",
+    "static/js/main.c6df9b87.chunk.js"
+  ]
+}
