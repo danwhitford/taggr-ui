@@ -22,7 +22,6 @@ jobs:
           folder: build # The folder the action should deploy.
 
 name: Just build
-name: Build and Deploy
 on:
   pull_request:
     branches:
