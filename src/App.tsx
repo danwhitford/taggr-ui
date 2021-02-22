@@ -86,7 +86,7 @@ const simpleTag = (words: string): TaggedWords[] => {
 }
 
 function App() {
-  const [inputText, setInputText] = useState("This is the default input text.")
+  const [inputText, setInputText] = useState("Southampton are the best at football.")
   const [tagged, setTagged] = useState([] as TaggedWords[])
   const [posToggles, setPosToggles] = useState(Object
     .entries(SimplePos)
