@@ -1,22 +1,25 @@
-import React, { useState, SetStateAction, Dispatch } from 'react';
+import React, { useState } from 'react';
 import WordChip from './WordChip';
 import SimplePos from './SimplePos';
 import './global.css'
 import Toggles from './Toggles';
 import TagCab from './TagCab';
+import { Lexed } from "lexed";
+import { Tag } from "en-pos";
+import { zip, flatMap } from "lodash";
 
-type TaggedWords = [string, SimplePos]
+type TaggedWords = [string | undefined, SimplePos]
 // type Toggle = [string, SimplePos, boolean]
 interface ToggleI {
   pos: SimplePos;
   label: string;
-  visible: boolean;  
+  visible: boolean;
   colour: string;
 }
 export type TogglesT = ToggleI[]
 
 const getColour = (pos: SimplePos): string => {
-  switch(pos){
+  switch (pos) {
     case (SimplePos.Adjective): {
       return '#43546a'
     }
@@ -34,10 +37,10 @@ const getColour = (pos: SimplePos): string => {
     }
     case (SimplePos.Conjunctives): {
       return '#ffc000'
-    } 
+    }
     case (SimplePos.Determiner): {
       return '#f2ae72'
-    } 
+    }
     case (SimplePos.Preposition): {
       return '#ea592f'
     }
@@ -47,12 +50,45 @@ const getColour = (pos: SimplePos): string => {
   }
 }
 
-const apiRoute = process.env.REACT_APP_API_ROUTE || 'http://localhost:8081/simple'
+const simplify = (tag?: string) => {
+  if (tag?.startsWith("NN")) {
+    return SimplePos.Noun;
+  } else if (tag?.startsWith("JJ")) {
+    return SimplePos.Adjective;
+  } else if (tag?.startsWith("VB")) {
+    return SimplePos.Verb;
+  } else if (tag?.startsWith("RB")) {
+    return SimplePos.Adverb;
+  } else if (tag?.startsWith("PR")) {
+    return SimplePos.Pronoun;
+  } else if (tag?.startsWith("IN")) {
+    return SimplePos.Preposition
+  } else if (tag?.startsWith("CC")) {
+    return SimplePos.Conjunctives
+  } else if (tag?.endsWith("DT")) {
+    return SimplePos.Determiner
+  } else {
+    return SimplePos.Other;
+  }
+};
+
+const tag = (words: string): [string?, string?][] => {
+  const tokens = new Lexed(words).lexer().tokens;
+  const tagObj = new Tag(flatMap(tokens)).initial().smooth();
+  return zip(tagObj.tokens, tagObj.tags);
+};
+
+const simpleTag = (words: string): TaggedWords[] => {
+  const tagged = tag(words)
+  return tagged.map(tp => {
+    return [tp[0], simplify(tp[1])]
+  })
+}
 
 function App() {
   const [inputText, setInputText] = useState("This is the default input text.")
-  const [tagged, setTagged]: [TaggedWords[], Dispatch<SetStateAction<TaggedWords[]>>] = useState([] as TaggedWords[])
-  const [posToggles, setPosToggles]: [TogglesT, Dispatch<SetStateAction<TogglesT>>] = useState(Object
+  const [tagged, setTagged] = useState([] as TaggedWords[])
+  const [posToggles, setPosToggles] = useState(Object
     .entries(SimplePos)
     .map(([label, pos]) => {
       return {
@@ -65,19 +101,7 @@ function App() {
   )
 
   const change = () => {
-    fetch(apiRoute,
-      {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          'words': inputText
-        })
-      })
-      .then(res => res.json())
-      .then(j => setTagged(j))
+    setTagged(simpleTag(inputText))
   }
 
   const togglePos = (pos: SimplePos) => {
@@ -96,18 +120,18 @@ function App() {
 
   return (
     <>
-    <div
-      style={{
-        width: '700px',
-        margin: 'auto',
-        marginBottom: '50px',
-      }}
-    >
-        <textarea 
-          id='input-area' 
+      <div
+        style={{
+          width: '700px',
+          margin: 'auto',
+          marginBottom: '50px',
+        }}
+      >
+        <textarea
+          id='input-area'
           onChange={(ev) => setInputText(ev.target.value)}
           value={inputText}
-          cols={80} 
+          cols={80}
           rows={10}
           style={{
             resize: 'none',
@@ -117,7 +141,7 @@ function App() {
           }}
         ></textarea>
         <br />
-        <TagCab 
+        <TagCab
           onClick={change}
         />
       </div>
@@ -141,9 +165,9 @@ function App() {
             visible={posToggles.find((p: ToggleI) => p.pos === pos)?.visible}
             colour={getColour(pos)}
             onClick={() => togglePos(pos)}
-          />          
+          />
         ))}
-      </div> : null }
+      </div> : null}
       <div
         style={{
           width: '700px',
@@ -151,7 +175,7 @@ function App() {
           textAlign: 'center',
         }}
       >
-        <Toggles 
+        <Toggles
           toggles={posToggles}
           onChange={togglePos}
         />

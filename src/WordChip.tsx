@@ -2,7 +2,7 @@ import React from 'react';
 import SimplePos from './SimplePos';
 
 interface WordChipProp {
-    word: string,
+    word?: string,
     type: SimplePos,
     colour: string,
     visible?: boolean,
