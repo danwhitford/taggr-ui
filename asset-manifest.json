@@ -5,15 +5,15 @@
     "main.js.map": "/taggr-ui/static/js/main.b070d377.chunk.js.map",
     "runtime-main.js": "/taggr-ui/static/js/runtime-main.28942193.js",
     "runtime-main.js.map": "/taggr-ui/static/js/runtime-main.28942193.js.map",
-    "static/js/2.7e7a96da.chunk.js": "/taggr-ui/static/js/2.7e7a96da.chunk.js",
-    "static/js/2.7e7a96da.chunk.js.map": "/taggr-ui/static/js/2.7e7a96da.chunk.js.map",
+    "static/js/2.2c989766.chunk.js": "/taggr-ui/static/js/2.2c989766.chunk.js",
+    "static/js/2.2c989766.chunk.js.map": "/taggr-ui/static/js/2.2c989766.chunk.js.map",
     "index.html": "/taggr-ui/index.html",
     "static/css/main.590fea2b.chunk.css.map": "/taggr-ui/static/css/main.590fea2b.chunk.css.map",
-    "static/js/2.7e7a96da.chunk.js.LICENSE.txt": "/taggr-ui/static/js/2.7e7a96da.chunk.js.LICENSE.txt"
+    "static/js/2.2c989766.chunk.js.LICENSE.txt": "/taggr-ui/static/js/2.2c989766.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.28942193.js",
-    "static/js/2.7e7a96da.chunk.js",
+    "static/js/2.2c989766.chunk.js",
     "static/css/main.590fea2b.chunk.css",
     "static/js/main.b070d377.chunk.js"
   ]
