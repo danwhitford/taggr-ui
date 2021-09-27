@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@types/jest": "^27.0.2",
-    "@types/lodash": "^4.14.173",
+    "@types/lodash": "^4.14.174",
     "@types/react": "^17.0.24",
     "@types/node": "^16.9.6",
     "@types/react-dom": "^17.0.9",
