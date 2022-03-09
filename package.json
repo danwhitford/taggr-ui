@@ -5,7 +5,7 @@
   "homepage": "https://shaftoe44.github.io/taggr-ui",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.2",
-    "@testing-library/react": "^12.1.3",
+    "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
     "en-norm": "0.0.3",
     "en-pos": "^1.0.16",
