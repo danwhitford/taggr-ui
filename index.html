@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Word Taggr</title>
+
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="bundle.js"></script>
+</head>
+
+<body>
+
+    <div class="app">
+        <textarea id='app-input' class="app-textarea" cols="80" rows="10">I am the fly.</textarea>
+        <div class="tagcab" id="cab">Tag</div>
+    </div>
+
+    <div class="tagged-container" id="tagged-container">
+        <div class="wordchip noun">Hello</div>
+        <div class="wordchip noun hidden">World</div>
+        <div class="wordchip noun">!</div>
+    </div>
+
+    <div class="toggle-container">
+        <div class="toggles">
+            <div class="toggle Vrb" data-type="Vrb">Verb</div>
+            <div class="toggle Adj" data-type="Adj">Adjective</div>
+            <div class="toggle Nn" data-type="Nn">Noun</div>
+            <div class="toggle Avb" data-type="Avb">Adverb</div>
+            <div class="toggle Pnn" data-type="Pnn">Pronoun</div>
+            <div class="toggle Ppn" data-type="Ppn">Preposition</div>
+            <div class="toggle Cjs" data-type="Cjs">Conjunctives</div>
+            <div class="toggle Dtr" data-type="Dtr">Determiner</div>
+            <div class="toggle Ukn" data-type="Ukn">Other</div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,136 @@
+html {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.app {
+    width: 700px;
+    margin: auto;
+    margin-bottom: 50px;
+}
+
+.app-textarea {
+    resize: none;
+    z-index: -1;
+    font-size: 22px;
+    width: 500px;
+}
+
+.tagcab {
+    border-radius: 50%;
+    user-select: none;
+    width: 90px;
+    height: 90px;
+    box-shadow: 0 10px 15px 0 rgba(67, 192, 163, 0.25);
+    border: solid 2px #252e3b;
+    background-image: radial-gradient(circle at 50% 50%, #78e1d0, #43c0a3 71%);
+    text-align: center;
+    color: white;
+    font-size: 30px;
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    margin-left: 450px;
+    margin-top: -45px;
+    z-index: 5;
+}
+
+.tagged-container {
+    width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    border-radius: 50px;
+    border: 1px dashed #252e3b;
+    margin-bottom: 40px;
+}
+
+.wordchip {
+    background-color: colour;
+    color: white;
+    border-radius: 25px;
+    padding: 0 5px;
+    margin: 0 2px;
+    height: 40px;
+    font-size: 20px;
+    line-height: 40px;
+    display: inline-block;
+    user-select: none;
+}
+
+.toggle-container {
+    width: 700px;
+    margin: auto;
+    text-align: center;
+}
+
+.toggles {
+    display: inline-block;
+    user-select: none;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.toggle {
+    height: 25px;
+    line-height: 25px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    /* backgroundColor: toggle.visible ? toggle.colour : white; */
+    display: inline-block;
+    border-radius: 17.5px;
+    /* border: toggle.visible ? `1px solid ${toggle.colour}` : 1px solid black; */
+    margin-left: 2px;
+    margin-right: 2px;
+    color: white;
+    font-size: 20px;
+    border: 1px solid white;
+}
+
+.toggled {
+    background-color: white !important;
+    border: 1px solid black;
+    color: black;
+}
+
+.hidden {
+    color: rgba(0, 0, 0, 0);
+}
+
+.Adj {
+    background-color: #43546a;
+}
+
+.Avb {
+    background-color: #4472c5;
+}
+
+.Nn {
+    background-color: #70ac46;
+}
+
+.Pnn {
+    background-color: #5b9bd5;
+}
+
+.Vrb {
+    background-color: #ed7d32;
+}
+
+.Cjs {
+    background-color: #ffc000;
+}
+
+.Dtr {
+    background-color: #f2ae72;
+}
+
+.Ppn {
+    background-color: #ea592f;
+}
+
+.Ukn {
+    background-color: #43464B;
+}
